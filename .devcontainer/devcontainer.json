@@ -1,0 +1,57 @@
+{
+  "name": "Python 3 Development Container Template",
+  "dockerFile": "Dockerfile",
+
+  "containerEnv": {
+    "AWS_CONFIG_FILE": "/root/.aws/config",
+    "AWS_SHARED_CREDENTIALS_FILE": "/root/.aws/credentials",
+    "AWS_VAULT_BACKEND": "file"
+  },
+
+  "mounts": [
+    "source=${localEnv:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.awsvault,target=/root/.awsvault,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.awsvaultk,target=/root/.awsvaultk,type=bind,consistency=cached,readonly=true"
+  ],
+
+  "customizations": {
+    "settings": {
+      "files.eol": "\n",
+      "editor.formatOnSave": true,
+      "python.testing.pytestArgs": ["."],
+      "python.testing.unittestEnabled": false,
+      "python.testing.pytestEnabled": true,
+      "python.formatting.provider": "black",
+      "python.linting.mypyEnabled": true,
+      "python.linting.enabled": true,
+      "remote.extensionKind": {
+        "ms-azuretools.vscode-docker": "workspace"
+      }
+    },
+    "vscode": {
+      "extensions": [
+        "davidanson.vscode-markdownlint",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "Gruntfuggly.todo-tree",
+        "hashicorp.terraform",
+        "ms-azuretools.vscode-docker",
+        "ms-python.debugpy",
+        "ms-python.python",
+        "streetsidesoftware.code-spell-checker",
+        "vscode-icons-team.vscode-icons"
+      ],
+      "settings": {
+        "workbench.iconTheme": "vscode-icons"
+      }
+    }
+  },
+
+  "postCreateCommand": ".devcontainer/scripts/postCreate.sh",
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "root"
+}
